@@ -1,0 +1,70 @@
+version: '3.8'
+
+services:
+  # MySQL Database Service
+  db:
+    image: mysql:8.0
+    container_name: shree_sai_db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: shree_sai_enterprises
+      MYSQL_USER: shreesai_user
+      MYSQL_PASSWORD: shreesai_password
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./schema.sql:/docker-entrypoint-initdb.d/01_schema.sql:ro
+      - ./seed.sql:/docker-entrypoint-initdb.d/02_seed.sql:ro
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-prootpassword"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - shree_sai_network
+
+  # Node.js + Express Backend & Frontend Service
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: shree_sai_web
+    restart: always
+    environment:
+      NODE_ENV: production
+      PORT: 3000
+      DB_HOST: db
+      DB_PORT: 3306
+      DB_USER: root
+      DB_PASSWORD: rootpassword
+      DB_NAME: shree_sai_enterprises
+      JWT_SECRET: shree_sai_super_secret_jwt_key_production_2024
+      JWT_EXPIRES_IN: 24h
+      BUSINESS_NAME: "Shree Sai Enterprises"
+      OWNER_NAME: "Samadhan R. Jadhav"
+      PHONE_PRIMARY: "9822414748"
+      PHONE_SECONDARY: "9422941187"
+      EMAIL: "samadhanj182@gmail.com"
+      GSTIN: "27AFSPJ0957J1ZX"
+      ADDRESS: "Sai Sankul Apartment, Palkhed Road, A/P & Tal. Dindori, Dist. Nashik - 422202"
+    ports:
+      - "3000:3000"
+    depends_on:
+      db:
+        condition: service_healthy
+    volumes:
+      - upload_data:/app/public/images/uploads
+    networks:
+      - shree_sai_network
+
+volumes:
+  mysql_data:
+    driver: local
+  upload_data:
+    driver: local
+
+networks:
+  shree_sai_network:
+    driver: bridge
