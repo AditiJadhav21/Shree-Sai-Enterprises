@@ -1,229 +1,300 @@
-/**
- * Shree Sai Enterprises - Products Catalog Logic
- */
+const express = require('express');
+const router = express.Router();
+const db = require('../config/db');
+const { authenticateToken } = require('../middleware/auth');
+const upload = require('../middleware/upload');
 
-let allProducts = [];
-let activeCategory = 'all';
-let currentSearch = '';
-let currentSort = 'default';
+// Helper to make slug
+function generateSlug(text) {
+  return text
+    .toString()
+    .toLowerCase()
+    .trim()
+    .replace(/\s+/g, '-')
+    .replace(/[^\w\-]+/g, '')
+    .replace(/\-\-+/g, '-')
+    .replace(/^-+/, '')
+    .replace(/-+$/, '');
+}
 
-async function fetchProducts() {
-  const container = document.getElementById('products-grid');
-  if (!container) return;
-
+// Get all categories
+router.get('/categories', async (req, res) => {
   try {
-    container.innerHTML = `
-      <div class="col-span-full py-16 text-center text-slate-500">
-        <div class="inline-block animate-spin rounded-full h-10 w-10 border-b-2 border-amber-500 mb-3"></div>
-        <p class="font-medium text-slate-600">Loading solar equipment catalog...</p>
-      </div>
-    `;
-
-    const params = new URLSearchParams();
-    if (activeCategory !== 'all') params.append('category', activeCategory);
-    if (currentSearch) params.append('search', currentSearch);
-    if (currentSort !== 'default') params.append('sort', currentSort);
-
-    const res = await fetch(`/api/products?${params.toString()}`);
-    const data = await res.json();
-
-    if (data.success) {
-      allProducts = data.products;
-      renderProductsGrid(allProducts);
-      const countEl = document.getElementById('product-count-label');
-      if (countEl) countEl.textContent = `Showing ${allProducts.length} Products`;
-    }
+    const categories = await db.query('SELECT * FROM categories ORDER BY id ASC');
+    res.json({ success: true, categories });
   } catch (err) {
-    container.innerHTML = `
-      <div class="col-span-full py-12 text-center text-red-500">
-        <p class="font-semibold">Unable to load products. Please check your network or try again.</p>
-      </div>
-    `;
+    res.status(500).json({ success: false, message: err.message });
   }
-}
-
-function renderProductsGrid(products) {
-  const container = document.getElementById('products-grid');
-  if (!container) return;
-
-  if (products.length === 0) {
-    container.innerHTML = `
-      <div class="col-span-full py-16 text-center bg-white rounded-2xl border border-slate-200 p-8 shadow-sm">
-        <div class="text-5xl mb-4">🔍</div>
-        <h3 class="text-xl font-bold text-slate-800 mb-2">No matching solar products found</h3>
-        <p class="text-slate-500 mb-6">Try adjusting your search terms or filter category to find what you are looking for.</p>
-        <button onclick="resetFilters()" class="px-5 py-2.5 bg-amber-500 text-white rounded-xl font-semibold hover:bg-amber-600 transition shadow">
-          Clear All Filters
-        </button>
-      </div>
-    `;
-    return;
-  }
-
-  container.innerHTML = products.map(product => {
-    const isLimited = product.stock_status === 'limited_stock';
-    const isOut = product.stock_status === 'out_of_stock';
-    
-    let stockBadge = `<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200">
-      <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span> In Stock (${product.stock_qty || 10})
-    </span>`;
-
-    if (isLimited) {
-      stockBadge = `<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-amber-50 text-amber-700 border border-amber-200">
-        <span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span> Limited Stock (${product.stock_qty})
-      </span>`;
-    } else if (isOut) {
-      stockBadge = `<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-red-50 text-red-700 border border-red-200">
-        <span class="w-1.5 h-1.5 rounded-full bg-red-500"></span> Out of Stock
-      </span>`;
-    }
-
-    return `
-      <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col group card-hover">
-        <!-- Image Container -->
-        <div class="relative bg-slate-50 aspect-[4/3] p-4 flex items-center justify-center overflow-hidden border-b border-slate-100">
-          <img src="${product.primary_image || '/images/products/mono-perc-550w.svg'}" 
-               alt="${product.name}" 
-               class="max-h-full max-w-full object-contain group-hover:scale-105 transition-transform duration-500"
-               loading="lazy">
-          
-          <div class="absolute top-3 left-3">
-            <span class="px-2.5 py-1 rounded-lg text-xs font-bold tracking-wide uppercase bg-slate-900/80 text-white backdrop-blur-sm">
-              ${product.category_name || 'Solar Equipment'}
-            </span>
-          </div>
-
-          <div class="absolute top-3 right-3">
-            ${stockBadge}
-          </div>
-        </div>
-
-        <!-- Content -->
-        <div class="p-5 flex-1 flex flex-col justify-between">
-          <div>
-            <h3 class="text-lg font-bold text-slate-900 group-hover:text-amber-600 transition-colors line-clamp-2 leading-snug">
-              <a href="/product/${product.slug || product.id}">${product.name}</a>
-            </h3>
-            
-            <p class="text-xs text-slate-500 mt-2 line-clamp-2 leading-relaxed">
-              ${product.short_info || ''}
-            </p>
-
-            <div class="mt-3 flex items-center gap-2 text-xs font-medium text-slate-600 bg-slate-50 p-2 rounded-lg">
-              <span class="text-amber-500">🛡️</span>
-              <span class="truncate">${product.warranty || '25 Years Performance Warranty'}</span>
-            </div>
-          </div>
-
-          <!-- Price & Action -->
-          <div class="mt-5 pt-4 border-t border-slate-100">
-            <div class="mb-3">
-              <div class="flex items-baseline gap-2">
-                <span class="text-2xl font-black text-slate-900">${formatINR(product.approx_price)}</span>
-                <span class="text-xs font-semibold text-slate-400">approx.*</span>
-              </div>
-              <p class="text-[11px] text-amber-700 font-medium">Final price & subsidy on formal quotation</p>
-            </div>
-
-            <div class="grid grid-cols-2 gap-2">
-              <a href="/product/${product.slug || product.id}" 
-                 class="px-3 py-2.5 rounded-xl border border-slate-300 text-slate-700 text-center font-semibold text-xs hover:bg-slate-50 hover:border-slate-400 transition">
-                View Details
-              </a>
-              <button onclick="handleAddToQuote(${product.id})" 
-                      class="px-3 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-600 text-white font-bold text-xs flex items-center justify-center gap-1.5 transition shadow-sm hover:shadow">
-                <span>+ Add to Quote</span>
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-    `;
-  }).join('');
-}
-
-function handleAddToQuote(productId) {
-  const product = allProducts.find(p => p.id === productId);
-  if (product) {
-    SSE_Cart.addItem(product, 1);
-  }
-}
-
-function resetFilters() {
-  activeCategory = 'all';
-  currentSearch = '';
-  currentSort = 'default';
-  
-  const searchInput = document.getElementById('search-input');
-  if (searchInput) searchInput.value = '';
-
-  const sortSelect = document.getElementById('sort-select');
-  if (sortSelect) sortSelect.value = 'default';
-
-  document.querySelectorAll('.cat-filter-btn').forEach(btn => {
-    btn.classList.remove('bg-amber-500', 'text-white', 'shadow');
-    btn.classList.add('bg-white', 'text-slate-700');
-    if (btn.dataset.category === 'all') {
-      btn.classList.add('bg-amber-500', 'text-white', 'shadow');
-      btn.classList.remove('bg-white', 'text-slate-700');
-    }
-  });
-
-  fetchProducts();
-}
-
-// Initialise Products Page Listeners
-document.addEventListener('DOMContentLoaded', () => {
-  const container = document.getElementById('products-grid');
-  if (!container) return;
-
-  // Read URL query params if any
-  const urlParams = new URLSearchParams(window.location.search);
-  if (urlParams.get('category')) activeCategory = urlParams.get('category');
-  if (urlParams.get('search')) currentSearch = urlParams.get('search');
-
-  // Category filter buttons
-  document.querySelectorAll('.cat-filter-btn').forEach(btn => {
-    if (btn.dataset.category === activeCategory) {
-      btn.classList.add('bg-amber-500', 'text-white', 'shadow');
-      btn.classList.remove('bg-white', 'text-slate-700');
-    }
-
-    btn.addEventListener('click', () => {
-      document.querySelectorAll('.cat-filter-btn').forEach(b => {
-        b.classList.remove('bg-amber-500', 'text-white', 'shadow');
-        b.classList.add('bg-white', 'text-slate-700');
-      });
-      btn.classList.add('bg-amber-500', 'text-white', 'shadow');
-      btn.classList.remove('bg-white', 'text-slate-700');
-
-      activeCategory = btn.dataset.category;
-      fetchProducts();
-    });
-  });
-
-  // Search input with debounce
-  const searchInput = document.getElementById('search-input');
-  if (searchInput) {
-    if (currentSearch) searchInput.value = currentSearch;
-    let timer = null;
-    searchInput.addEventListener('input', (e) => {
-      clearTimeout(timer);
-      timer = setTimeout(() => {
-        currentSearch = e.target.value.trim();
-        fetchProducts();
-      }, 350);
-    });
-  }
-
-  // Sort select
-  const sortSelect = document.getElementById('sort-select');
-  if (sortSelect) {
-    sortSelect.addEventListener('change', (e) => {
-      currentSort = e.target.value;
-      fetchProducts();
-    });
-  }
-
-  fetchProducts();
 });
+
+// Get all products with filters
+router.get('/', async (req, res) => {
+  try {
+    const { category, search, sort, featured, stock } = req.query;
+    let products = await db.query('SELECT * FROM products');
+
+    // Filter by Category
+    if (category && category !== 'all') {
+      const catVal = category.toString().toLowerCase();
+      products = products.filter(p => {
+        const catSlug = (p.category_slug || '').toLowerCase();
+        const catName = (p.category_name || '').toLowerCase();
+        return p.category_id == category || catSlug === catVal || catName.includes(catVal);
+      });
+    }
+
+    // Filter by Search
+    if (search) {
+      const q = search.toString().toLowerCase().trim();
+      products = products.filter(p => 
+        p.name.toLowerCase().includes(q) ||
+        (p.short_info && p.short_info.toLowerCase().includes(q)) ||
+        (p.category_name && p.category_name.toLowerCase().includes(q))
+      );
+    }
+
+    // Filter by Stock Status
+    if (stock) {
+      products = products.filter(p => p.stock_status === stock);
+    }
+
+    // Filter Featured
+    if (featured === '1' || featured === 'true') {
+      products = products.filter(p => p.is_featured == 1);
+    }
+
+    // Sort
+    if (sort === 'price_asc') {
+      products.sort((a, b) => parseFloat(a.approx_price) - parseFloat(b.approx_price));
+    } else if (sort === 'price_desc') {
+      products.sort((a, b) => parseFloat(b.approx_price) - parseFloat(a.approx_price));
+    } else if (sort === 'name_asc') {
+      products.sort((a, b) => a.name.localeCompare(b.name));
+    } else if (sort === 'name_desc') {
+      products.sort((a, b) => b.name.localeCompare(a.name));
+    } else {
+      // default: featured first, then id
+      products.sort((a, b) => (b.is_featured || 0) - (a.is_featured || 0) || a.id - b.id);
+    }
+
+    res.json({
+      success: true,
+      count: products.length,
+      products
+    });
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
+  }
+});
+
+// Get single product by ID or Slug
+router.get('/:slugOrId', async (req, res) => {
+  try {
+    const { slugOrId } = req.params;
+    let product = null;
+
+    if (!isNaN(slugOrId)) {
+      const rows = await db.query('SELECT * FROM products WHERE id = ?', [slugOrId]);
+      if (rows && rows.length > 0) product = rows[0];
+    }
+
+    if (!product) {
+      const rows = await db.query('SELECT * FROM products WHERE slug = ?', [slugOrId]);
+      if (rows && rows.length > 0) product = rows[0];
+    }
+
+    if (!product) {
+      return res.status(404).json({ success: false, message: 'Product not found.' });
+    }
+
+    // Parse JSON specs if string
+    if (typeof product.specifications === 'string') {
+      try { product.specifications = JSON.parse(product.specifications); } catch (e) {}
+    }
+    if (typeof product.key_features === 'string') {
+      try { product.key_features = JSON.parse(product.key_features); } catch (e) {}
+    }
+
+    // Fetch related products in same category
+    let related = await db.query('SELECT * FROM products WHERE category_id = ? AND id != ? LIMIT 4', [product.category_id, product.id]);
+    if (!related || related.length === 0) {
+      const all = await db.query('SELECT * FROM products WHERE id != ? LIMIT 4', [product.id]);
+      related = all.slice(0, 4);
+    }
+
+    res.json({
+      success: true,
+      product,
+      related: related || []
+    });
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
+  }
+});
+
+// Create product (Admin)
+router.post('/', authenticateToken, upload.single('image'), async (req, res) => {
+  try {
+    const {
+      name,
+      category_id,
+      short_info,
+      full_description,
+      approx_price,
+      gst_rate,
+      hsn_code,
+      stock_qty,
+      stock_status,
+      warranty,
+      specifications,
+      key_features,
+      is_featured,
+      image_url
+    } = req.body;
+
+    if (!name || !category_id || !approx_price) {
+      return res.status(400).json({ success: false, message: 'Name, Category, and Approximate Price are required.' });
+    }
+
+    const slug = generateSlug(name) + '-' + Date.now().toString().slice(-4);
+    let primaryImage = image_url || '/images/products/mono-perc-550w.svg';
+    if (req.file) {
+      primaryImage = `/images/products/${req.file.filename}`;
+    }
+
+    let parsedSpecs = {};
+    if (specifications) {
+      parsedSpecs = typeof specifications === 'string' ? JSON.parse(specifications) : specifications;
+    }
+
+    let parsedFeatures = [];
+    if (key_features) {
+      parsedFeatures = typeof key_features === 'string' ? JSON.parse(key_features) : key_features;
+    }
+
+    const result = await db.query(
+      `INSERT INTO products 
+      (category_id, name, slug, short_info, full_description, approx_price, gst_rate, hsn_code, stock_qty, stock_status, primary_image, warranty, specifications, key_features, is_featured) 
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+      [
+        parseInt(category_id, 10),
+        name,
+        slug,
+        short_info || name,
+        full_description || short_info || name,
+        parseFloat(approx_price),
+        parseFloat(gst_rate || 12.00),
+        hsn_code || '85414011',
+        parseInt(stock_qty || 10, 10),
+        stock_status || 'in_stock',
+        primaryImage,
+        warranty || 'Standard Manufacturer Warranty',
+        JSON.stringify(parsedSpecs),
+        JSON.stringify(parsedFeatures),
+        is_featured ? 1 : 0
+      ]
+    );
+
+    res.json({
+      success: true,
+      message: 'Product created successfully.',
+      productId: result.insertId || result.id
+    });
+  } catch (err) {
+    console.error('Create product error:', err);
+    res.status(500).json({ success: false, message: err.message });
+  }
+});
+
+// Update product (Admin)
+router.put('/:id', authenticateToken, upload.single('image'), async (req, res) => {
+  try {
+    const id = parseInt(req.params.id, 10);
+    const {
+      name,
+      category_id,
+      short_info,
+      full_description,
+      approx_price,
+      gst_rate,
+      stock_qty,
+      stock_status,
+      warranty,
+      specifications,
+      key_features,
+      is_featured,
+      image_url
+    } = req.body;
+
+    let primaryImage = image_url;
+    if (req.file) {
+      primaryImage = `/images/products/${req.file.filename}`;
+    }
+
+    let parsedSpecs = {};
+    if (specifications) {
+      parsedSpecs = typeof specifications === 'string' ? JSON.parse(specifications) : specifications;
+    }
+
+    let parsedFeatures = [];
+    if (key_features) {
+      parsedFeatures = typeof key_features === 'string' ? JSON.parse(key_features) : key_features;
+    }
+
+    await db.query(
+      `UPDATE products SET 
+      category_id = ?, name = ?, short_info = ?, full_description = ?, approx_price = ?, gst_rate = ?, stock_qty = ?, stock_status = ?, primary_image = ?, warranty = ?, specifications = ?, key_features = ?, is_featured = ?
+      WHERE id = ?`,
+      [
+        parseInt(category_id, 10),
+        name,
+        short_info,
+        full_description,
+        parseFloat(approx_price),
+        parseFloat(gst_rate || 12),
+        parseInt(stock_qty, 10),
+        stock_status,
+        primaryImage,
+        warranty,
+        JSON.stringify(parsedSpecs),
+        JSON.stringify(parsedFeatures),
+        is_featured ? 1 : 0,
+        id
+      ]
+    );
+
+    res.json({ success: true, message: 'Product updated successfully.' });
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
+  }
+});
+
+// Quick Update Stock Status (Admin)
+router.patch('/:id/stock', authenticateToken, async (req, res) => {
+  try {
+    const id = parseInt(req.params.id, 10);
+    const { stock_qty, stock_status } = req.body;
+
+    await db.query(
+      'UPDATE products SET stock_qty = ?, stock_status = ? WHERE id = ?',
+      [parseInt(stock_qty, 10), stock_status, id]
+    );
+
+    res.json({ success: true, message: 'Stock updated successfully.' });
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
+  }
+});
+
+// Delete product (Admin)
+router.delete('/:id', authenticateToken, async (req, res) => {
+  try {
+    const id = parseInt(req.params.id, 10);
+    await db.query('DELETE FROM products WHERE id = ?', [id]);
+    res.json({ success: true, message: 'Product deleted successfully.' });
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
+  }
+});
+
+module.exports = router;
