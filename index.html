@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shree Sai Enterprises | Solar Energy Solutions &amp; PM Surya Ghar Vendor | Dindori, Nashik</title>
+  <meta name="description" content="Authorised PM Surya Ghar vendor in Dindori, Nashik. Solar panels, solar water heaters, inverters, batteries, net-metering liaison by Samadhan R. Jadhav.">
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="/css/style.css">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            solar: {
+              50: '#fffbeb',
+              100: '#fef3c7',
+              500: '#f59e0b',
+              600: '#ea580c',
+              700: '#c2410c',
+            },
+            navy: {
+              800: '#1e293b',
+              900: '#0f172a',
+              950: '#020617',
+            }
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-slate-50 text-slate-800 flex flex-col min-h-screen">
+
+  <!-- TOP BAR -->
+  <div class="bg-navy-950 text-slate-300 text-xs py-2 px-4 border-b border-slate-800">
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-2">
+      <div class="flex items-center gap-3">
+        <span class="inline-flex items-center gap-1.5 text-amber-400 font-semibold">
+          ★ Authorised Vendor: PM Surya Ghar Muft Bijli Yojana (MNRE)
+        </span>
+        <span class="hidden lg:inline text-slate-600">|</span>
+        <span class="hidden lg:inline text-slate-400">GSTIN: 27AFSPJ0957J1ZX</span>
+      </div>
+      <div class="flex items-center gap-4 font-medium">
+        <a href="tel:+919822414748" class="hover:text-amber-400 transition flex items-center gap-1">
+          📞 9822414748
+        </a>
+        <a href="tel:+919422941187" class="hover:text-amber-400 transition hidden sm:inline">
+          / 9422941187
+        </a>
+        <a href="mailto:samadhanj182@gmail.com" class="hover:text-amber-400 transition hidden sm:flex items-center gap-1">
+          ✉️ samadhanj182@gmail.com
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- STICKY NAVBAR -->
+  <header id="main-navbar" class="sticky top-0 z-50 bg-white border-b border-slate-200 transition-all duration-300">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+      <!-- Logo -->
+      <a href="/" class="flex items-center gap-3">
+        <img src="/images/logo/logo.svg" alt="Shree Sai Enterprises Solar" class="h-12 w-auto">
+      </a>
+
+      <!-- Desktop Navigation -->
+      <nav class="hidden md:flex items-center gap-6 text-sm font-semibold text-slate-700">
+        <a href="/" class="nav-link hover:text-amber-600 transition">Home</a>
+        <a href="/about" class="nav-link hover:text-amber-600 transition">About Us</a>
+        <a href="/owner" class="nav-link hover:text-amber-600 transition">Leadership</a>
+        <a href="/products" class="nav-link hover:text-amber-600 transition">Products</a>
+        <a href="/services" class="nav-link hover:text-amber-600 transition">Services</a>
+        <a href="/gallery" class="nav-link hover:text-amber-600 transition">Gallery</a>
+        <a href="/contact" class="nav-link hover:text-amber-600 transition">Contact</a>
+      </nav>
+
+      <!-- Action Buttons -->
+      <div class="flex items-center gap-3">
+        <!-- Cart Quote Button -->
+        <a href="/quotation" class="relative px-4 py-2.5 rounded-xl border border-slate-200 hover:border-amber-400 bg-slate-50 hover:bg-white text-slate-800 text-xs font-bold transition flex items-center gap-2">
+          <span>📋 Quote Cart</span>
+          <span class="cart-badge-count hidden px-2 py-0.5 rounded-full text-[11px] font-black bg-amber-500 text-white">0</span>
+        </a>
+
+        <!-- Primary CTA -->
+        <a href="/quotation" class="hidden sm:inline-flex px-5 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-orange-600 text-white text-xs font-bold shadow-md hover:shadow-lg transition-all transform hover:-translate-y-0.5">
+          Get Free Quote
+        </a>
+
+        <!-- Mobile Menu Toggle Button -->
+        <button id="mobile-menu-btn" class="md:hidden p-2 rounded-lg text-slate-700 hover:bg-slate-100 focus:outline-none">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Drawer -->
+    <div id="mobile-menu" class="hidden md:hidden bg-white border-b border-slate-200 px-4 pt-2 pb-6 space-y-2 text-sm font-semibold">
+      <a href="/" class="block px-3 py-2 rounded-lg text-slate-700 hover:bg-amber-50 hover:text-amber-600">Home</a>
+      <a href="/about" class="block px-3 py-2 rounded-lg text-slate-700 hover:bg-amber-50 hover:text-amber-600">About Us</a>
+      <a href="/owner" class="block px-3 py-2 rounded-lg text-slate-700 hover:bg-amber-50 hover:text-amber-600">Leadership</a>
+      <a href="/products" class="block px-3 py-2 rounded-lg text-slate-700 hover:bg-amber-50 hover:text-amber-600">Products Catalog</a>
+      <a href="/services" class="block px-3 py-2 rounded-lg text-slate-700 hover:bg-amber-50 hover:text-amber-600">Our Services</a>
+      <a href="/gallery" class="block px-3 py-2 rounded-lg text-slate-700 hover:bg-amber-50 hover:text-amber-600">Live Gallery</a>
+      <a href="/quotation" class="block px-3 py-2 rounded-lg text-amber-700 bg-amber-50 font-bold">Get Instant Quotation</a>
+      <a href="/contact" class="block px-3 py-2 rounded-lg text-slate-700 hover:bg-amber-50 hover:text-amber-600">Contact &amp; Map</a>
+      <a href="/admin" class="block px-3 py-2 rounded-lg text-slate-500 hover:bg-slate-100 text-xs">Admin Login</a>
+    </div>
+  </header>
+
+  <main class="flex-grow">
+    <!-- HERO SECTION -->
+    <section class="relative bg-navy-900 text-white overflow-hidden py-16 lg:py-24">
+      <div class="absolute inset-0 opacity-20 pointer-events-none">
+        <img src="/images/hero/solar-hero.svg" alt="Solar Rooftop Illustration" class="w-full h-full object-cover">
+      </div>
+      
+      <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+          <!-- Hero Text -->
+          <div class="lg:col-span-7 space-y-6">
+            <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-amber-500/20 border border-amber-400/30 text-amber-300 text-xs font-bold tracking-wide">
+              <span>☀️</span> PM Surya Ghar Muft Bijli Yojana Official Partner
+            </div>
+            
+            <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight leading-tight">
+              Switch to Solar. <br>
+              <span class="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 via-orange-400 to-amber-200">
+                Zero Electric Bills
+              </span> for 25+ Years.
+            </h1>
+
+            <p class="text-base sm:text-lg text-slate-300 max-w-xl leading-relaxed">
+              Empowering residential homeowners, grape vineyards, and commercial enterprises in Dindori and Nashik with MNRE certified solar rooftop systems, solar water heaters, and heavy-duty inverters.
+            </p>
+
+            <!-- Key Trust Badges inline -->
+            <div class="grid grid-cols-2 sm:grid-cols-3 gap-3 pt-2 text-xs font-semibold">
+              <div class="flex items-center gap-2 bg-navy-800/80 p-2.5 rounded-xl border border-slate-700/80">
+                <span class="text-emerald-400 text-base">✓</span> Up to ₹78,000 Govt Subsidy
+              </div>
+              <div class="flex items-center gap-2 bg-navy-800/80 p-2.5 rounded-xl border border-slate-700/80">
+                <span class="text-emerald-400 text-base">✓</span> 25-Yr Performance Guarantee
+              </div>
+              <div class="flex items-center gap-2 bg-navy-800/80 p-2.5 rounded-xl border border-slate-700/80">
+                <span class="text-emerald-400 text-base">✓</span> MSEDCL Net-Meter Liaison
+              </div>
+            </div>
+
+            <!-- CTA Buttons -->
+            <div class="flex flex-wrap gap-4 pt-4">
+              <a href="/quotation" class="px-7 py-3.5 rounded-xl bg-gradient-to-r from-amber-500 to-orange-600 text-white font-bold text-sm shadow-xl hover:shadow-amber-500/25 transition-all transform hover:-translate-y-0.5 flex items-center gap-2">
+                <span>⚡ Calculate Your Free Quote</span>
+                <span>➔</span>
+              </a>
+              <a href="/products" class="px-7 py-3.5 rounded-xl bg-navy-800 hover:bg-slate-800 border border-slate-700 text-white font-bold text-sm transition">
+                Browse Products Catalog
+              </a>
+            </div>
+          </div>
+
+          <!-- Hero Image / Authorised Badge Card -->
+          <div class="lg:col-span-5 flex justify-center">
+            <div class="w-full max-w-md bg-navy-800/90 rounded-3xl border border-slate-700 p-6 shadow-2xl backdrop-blur-md">
+              <img src="/images/badges/pmsuryaghar-badge.svg" alt="PM Surya Ghar Badge" class="w-full h-auto mb-5 drop-shadow">
+              
+              <div class="bg-navy-950/80 rounded-2xl p-4 border border-slate-700/70 space-y-3">
+                <div class="flex justify-between items-center text-xs">
+                  <span class="text-slate-400">Vendor ID / Accreditation:</span>
+                  <span class="font-bold text-amber-400">MNRE Active</span>
+                </div>
+                <div class="flex justify-between items-center text-xs">
+                  <span class="text-slate-400">Proprietor:</span>
+                  <span class="font-bold text-white">Samadhan R. Jadhav</span>
+                </div>
+                <div class="flex justify-between items-center text-xs">
+                  <span class="text-slate-400">Location:</span>
+                  <span class="font-bold text-slate-300">Dindori, Nashik - 422202</span>
+                </div>
+                <div class="flex justify-between items-center text-xs">
+                  <span class="text-slate-400">Direct Helpline:</span>
+                  <a href="tel:+919822414748" class="font-bold text-emerald-400 hover:underline">9822414748</a>
+                </div>
+              </div>
+
+              <div class="mt-4 text-center">
+                <a href="https://wa.me/919822414748?text=Namaskar%20Samadhan%20ji,%20I%20want%20to%20know%20more%20about%20solar%20rooftop%20subsidy%20under%20PM%20Surya%20Ghar." 
+                   target="_blank" 
+                   class="inline-flex items-center justify-center gap-2 w-full py-3 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-bold transition">
+                  <span>💬 Chat with Samadhan ji on WhatsApp</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PM SURYA GHAR SUBSIDY HIGHLIGHTS STRIP -->
+    <section class="bg-amber-500 text-slate-950 py-6 border-y border-amber-600">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-6 text-center divide-y md:divide-y-0 md:divide-x divide-amber-600/60 font-medium">
+          <div class="pt-2 md:pt-0">
+            <p class="text-xs uppercase font-bold tracking-wider text-amber-900">1 kW Rooftop</p>
+            <p class="text-2xl font-black mt-0.5">₹30,000 Subsidy</p>
+            <p class="text-xs text-amber-950">Saves ~120 Units/Month</p>
+          </div>
+          <div class="pt-2 md:pt-0">
+            <p class="text-xs uppercase font-bold tracking-wider text-amber-900">2 kW Rooftop</p>
+            <p class="text-2xl font-black mt-0.5">₹60,000 Subsidy</p>
+            <p class="text-xs text-amber-950">Saves ~240 Units/Month</p>
+          </div>
+          <div class="pt-2 md:pt-0">
+            <p class="text-xs uppercase font-bold tracking-wider text-amber-900">3 kW+ Rooftop</p>
+            <p class="text-2xl font-black mt-0.5">₹78,000 Subsidy</p>
+            <p class="text-xs text-amber-950">Maximum Direct CFA Grant</p>
+          </div>
+          <div class="pt-2 md:pt-0">
+            <p class="text-xs uppercase font-bold tracking-wider text-amber-900">MSEDCL Net-Metering</p>
+            <p class="text-2xl font-black mt-0.5">Zero Bureaucracy</p>
+            <p class="text-xs text-amber-950">End-to-End Liaison by Us</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FEATURED PRODUCTS PREVIEW -->
+    <section class="py-16 bg-white">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-10 gap-4">
+          <div>
+            <span class="text-xs font-black uppercase text-amber-600 tracking-widest">Our Inventory</span>
+            <h2 class="text-3xl font-black text-slate-900 mt-1">Featured Solar Products</h2>
+            <p class="text-slate-500 text-sm mt-1">High efficiency Tier-1 modules, vacuum tube water heaters, and smart hybrid inverters.</p>
+          </div>
+          <a href="/products" class="inline-flex items-center gap-1.5 text-sm font-bold text-amber-600 hover:text-amber-700">
+            <span>Explore All 20+ Products</span> <span>➔</span>
+          </a>
+        </div>
+
+        <!-- Featured Grid -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <!-- Product Card 1 -->
+          <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm hover:shadow-xl transition-all card-hover flex flex-col justify-between">
+            <div class="p-4 bg-slate-50 border-b border-slate-100 flex items-center justify-center aspect-[4/3]">
+              <img src="/images/products/mono-perc-550w.svg" alt="550W Mono PERC Panel" class="max-h-full object-contain">
+            </div>
+            <div class="p-5 flex-1 flex flex-col justify-between">
+              <div>
+                <span class="px-2 py-0.5 rounded text-[11px] font-bold bg-amber-100 text-amber-800">Solar Panels</span>
+                <h3 class="text-base font-bold text-slate-900 mt-2">550W Mono PERC Half-Cut Solar Panel</h3>
+                <p class="text-xs text-slate-500 mt-1">144 half-cut cells, anti-PID technology, weather-proof ARC glass. DCR option available.</p>
+              </div>
+              <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between">
+                <div>
+                  <span class="text-lg font-black text-slate-900">₹14,500</span>
+                  <span class="text-[10px] text-slate-400"> approx.*</span>
+                </div>
+                <a href="/product/550w-mono-perc-half-cut-solar-panel" class="px-3 py-1.5 rounded-lg bg-amber-500 hover:bg-amber-600 text-white text-xs font-bold transition">
+                  Details &amp; Quote
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Product Card 2 -->
+          <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm hover:shadow-xl transition-all card-hover flex flex-col justify-between">
+            <div class="p-4 bg-slate-50 border-b border-slate-100 flex items-center justify-center aspect-[4/3]">
+              <img src="/images/products/solar-water-heater-etc-200lpd.svg" alt="200 LPD Solar Water Heater" class="max-h-full object-contain">
+            </div>
+            <div class="p-5 flex-1 flex flex-col justify-between">
+              <div>
+                <span class="px-2 py-0.5 rounded text-[11px] font-bold bg-sky-100 text-sky-800">Water Heaters</span>
+                <h3 class="text-base font-bold text-slate-900 mt-2">200 LPD ETC Non-Pressurized Solar Water Heater</h3>
+                <p class="text-xs text-slate-500 mt-1">15 borosilicate glass tubes, SS304 inner tank, keeps water hot for 48 hours for 4-6 members.</p>
+              </div>
+              <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between">
+                <div>
+                  <span class="text-lg font-black text-slate-900">₹26,800</span>
+                  <span class="text-[10px] text-slate-400"> approx.*</span>
+                </div>
+                <a href="/product/200-lpd-etc-non-pressurized-solar-water-heater" class="px-3 py-1.5 rounded-lg bg-amber-500 hover:bg-amber-600 text-white text-xs font-bold transition">
+                  Details &amp; Quote
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Product Card 3 -->
+          <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm hover:shadow-xl transition-all card-hover flex flex-col justify-between">
+            <div class="p-4 bg-slate-50 border-b border-slate-100 flex items-center justify-center aspect-[4/3]">
+              <img src="/images/products/rooftop-solar-combo.svg" alt="PM Surya Ghar 3kW Package" class="max-h-full object-contain">
+            </div>
+            <div class="p-5 flex-1 flex flex-col justify-between">
+              <div>
+                <span class="px-2 py-0.5 rounded text-[11px] font-bold bg-emerald-100 text-emerald-800">Turnkey Package</span>
+                <h3 class="text-base font-bold text-slate-900 mt-2">PM Surya Ghar 3kW Complete Rooftop Package</h3>
+                <p class="text-xs text-slate-500 mt-1">6x 540W DCR panels, 3.3kW On-Grid Inverter, GI mounting frame, net-metering liaison.</p>
+              </div>
+              <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between">
+                <div>
+                  <span class="text-lg font-black text-slate-900">₹1,65,000</span>
+                  <span class="text-[10px] text-slate-400"> approx.*</span>
+                </div>
+                <a href="/product/pm-surya-ghar-3kw-complete-rooftop-package" class="px-3 py-1.5 rounded-lg bg-amber-500 hover:bg-amber-600 text-white text-xs font-bold transition">
+                  Details &amp; Quote
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SERVICES PREVIEW -->
+    <section class="py-16 bg-slate-100 border-t border-slate-200">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center max-w-2xl mx-auto mb-12">
+          <span class="text-xs font-black uppercase text-amber-600 tracking-widest">What We Do</span>
+          <h2 class="text-3xl font-black text-slate-900 mt-1">Comprehensive Solar Engineering</h2>
+          <p class="text-slate-500 text-sm mt-2">From initial rooftop shading analysis to continuous maintenance and MSEDCL net metering approvals.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm card-hover">
+            <div class="w-12 h-12 rounded-xl bg-amber-100 text-amber-600 flex items-center justify-center text-2xl mb-4">☀️</div>
+            <h3 class="text-lg font-bold text-slate-900">Rooftop Solar Installation</h3>
+            <p class="text-xs text-slate-600 mt-2 leading-relaxed">Turnkey setup for residential, commercial sheds, and grape vineyards with heavy-duty galvanized mounting frames.</p>
+            <a href="/services" class="inline-flex items-center gap-1 text-xs font-bold text-amber-600 mt-4 hover:underline">Learn more ➔</a>
+          </div>
+
+          <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm card-hover">
+            <div class="w-12 h-12 rounded-xl bg-sky-100 text-sky-600 flex items-center justify-center text-2xl mb-4">💧</div>
+            <h3 class="text-lg font-bold text-slate-900">Solar Water Heaters</h3>
+            <p class="text-xs text-slate-600 mt-2 leading-relaxed">100 to 500 LPD high pressure systems with insulated CPVC piping, magnesium anode anti-scale and booster pump support.</p>
+            <a href="/services" class="inline-flex items-center gap-1 text-xs font-bold text-amber-600 mt-4 hover:underline">Learn more ➔</a>
+          </div>
+
+          <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm card-hover">
+            <div class="w-12 h-12 rounded-xl bg-emerald-100 text-emerald-600 flex items-center justify-center text-2xl mb-4">📑</div>
+            <h3 class="text-lg font-bold text-slate-900">MSEDCL Net-Metering Liaison</h3>
+            <p class="text-xs text-slate-600 mt-2 leading-relaxed">Complete paperwork handling on the PM Surya Ghar national portal and MSEDCL Nashik division for bi-directional meter release.</p>
+            <a href="/services" class="inline-flex items-center gap-1 text-xs font-bold text-amber-600 mt-4 hover:underline">Learn more ➔</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- WHY CHOOSE US -->
+    <section class="py-16 bg-navy-900 text-white">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          <div>
+            <span class="text-xs font-black uppercase text-amber-400 tracking-widest">Trust &amp; Reliability</span>
+            <h2 class="text-3xl sm:text-4xl font-black mt-2 leading-snug">
+              Why Dindori &amp; Nashik Trust Shree Sai Enterprises
+            </h2>
+            <p class="text-slate-300 text-sm mt-4 leading-relaxed">
+              Led by Samadhan R. Jadhav, Shree Sai Enterprises has established itself as the leading solar engineering provider across Dindori, Janori, Vani, and the broader Nashik region. We do not just sell boxes; we engineer 25-year energy independence.
+            </p>
+
+            <div class="space-y-4 mt-6 text-sm">
+              <div class="flex items-start gap-3">
+                <span class="text-amber-400 font-bold text-lg">✓</span>
+                <div>
+                  <h4 class="font-bold text-white">Authorised MNRE Vendor</h4>
+                  <p class="text-xs text-slate-400">Officially verified under the Ministry of New and Renewable Energy for guaranteed Central Financial Assistance (CFA).</p>
+                </div>
+              </div>
+
+              <div class="flex items-start gap-3">
+                <span class="text-amber-400 font-bold text-lg">✓</span>
+                <div>
+                  <h4 class="font-bold text-white">Local Physical Presence &amp; Warehouse</h4>
+                  <p class="text-xs text-slate-400">Located at Sai Sankul Apartment, Palkhed Road, Dindori. Rapid technical response and genuine spare parts within hours.</p>
+                </div>
+              </div>
+
+              <div class="flex items-start gap-3">
+                <span class="text-amber-400 font-bold text-lg">✓</span>
+                <div>
+                  <h4 class="font-bold text-white">Agricultural &amp; Industrial Expertise</h4>
+                  <p class="text-xs text-slate-400">Specialized experience powering grape vineyards, cold storages, drip pumps, and rural farms facing erratic 3-phase grid power.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Owner Spotlight Mini Box -->
+          <div class="bg-navy-800 rounded-3xl border border-slate-700 p-8 shadow-xl flex flex-col sm:flex-row items-center gap-6">
+            <img src="/images/owner/samadhan-jadhav.svg" alt="Samadhan R. Jadhav" class="w-32 h-40 object-cover rounded-2xl shadow-lg border-2 border-amber-400 flex-shrink-0">
+            <div>
+              <span class="px-2.5 py-1 rounded bg-amber-500/20 text-amber-300 text-xs font-bold">Proprietor Message</span>
+              <h3 class="text-xl font-black text-white mt-2">Samadhan R. Jadhav</h3>
+              <p class="text-xs text-slate-300 italic mt-2 leading-relaxed">
+                "Our mission is to help every homeowner and farmer in Dindori generate their own electricity and protect their hard-earned money from escalating electricity tariffs."
+              </p>
+              <div class="mt-4 pt-3 border-t border-slate-700 text-xs font-semibold text-slate-300">
+                <p>📞 9822414748 / 9422941187</p>
+                <p class="text-amber-400 mt-0.5">GSTIN: 27AFSPJ0957J1ZX</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TESTIMONIALS -->
+    <section class="py-16 bg-white">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center max-w-xl mx-auto mb-12">
+          <span class="text-xs font-black uppercase text-amber-600 tracking-widest">Client Reviews</span>
+          <h2 class="text-3xl font-black text-slate-900 mt-1">Trusted Across Dindori &amp; Nashik</h2>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div class="bg-slate-50 p-6 rounded-2xl border border-slate-200 shadow-xs">
+            <div class="text-amber-500 mb-2">★★★★★</div>
+            <p class="text-xs text-slate-600 italic leading-relaxed">
+              "We installed a 3.3 kW solar rooftop system with Shree Sai Enterprises under PM Surya Ghar. Samadhan ji got our MSEDCL net meter approved within 3 weeks. Our monthly electricity bill dropped from ₹3,800 to just ₹120!"
+            </p>
+            <div class="mt-4 pt-3 border-t border-slate-200">
+              <p class="text-xs font-bold text-slate-900">Dr. Nilesh Gaikwad</p>
+              <p class="text-[11px] text-slate-500">Palkhed Road, Dindori</p>
+            </div>
+          </div>
+
+          <div class="bg-slate-50 p-6 rounded-2xl border border-slate-200 shadow-xs">
+            <div class="text-amber-500 mb-2">★★★★★</div>
+            <p class="text-xs text-slate-600 italic leading-relaxed">
+              "We run a vineyard near Janori. The 5 HP solar water pump installed by Shree Sai Enterprises has solved all our daytime water issues. Sturdy galvanized structure and top-quality Mono PERC panels."
+            </p>
+            <div class="mt-4 pt-3 border-t border-slate-200">
+              <p class="text-xs font-bold text-slate-900">Kailasrao Shinde</p>
+              <p class="text-[11px] text-slate-500">Janori, Dindori Taluka</p>
+            </div>
+          </div>
+
+          <div class="bg-slate-50 p-6 rounded-2xl border border-slate-200 shadow-xs">
+            <div class="text-amber-500 mb-2">★★★★★</div>
+            <p class="text-xs text-slate-600 italic leading-relaxed">
+              "Got a 200 LPD solar water heater for our bungalow. Water stays boiling hot even during chilly December mornings in Nashik. Excellent plumbing workmanship and prompt service."
+            </p>
+            <div class="mt-4 pt-3 border-t border-slate-200">
+              <p class="text-xs font-bold text-slate-900">Sunita Deshmukh</p>
+              <p class="text-[11px] text-slate-500">Gangapur Road, Nashik</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CALL TO ACTION BANNER -->
+    <section class="py-14 bg-gradient-to-r from-amber-500 via-orange-500 to-amber-600 text-white">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <h2 class="text-3xl sm:text-4xl font-black">Ready to Slash Your Electricity Bills?</h2>
+        <p class="text-amber-100 text-sm sm:text-base max-w-xl mx-auto mt-2">
+          Get an immediate GST quotation with exact component breakdown, warranty, and PM Surya Ghar subsidy calculations.
+        </p>
+        <div class="mt-6 flex flex-wrap justify-center gap-4">
+          <a href="/quotation" class="px-8 py-3.5 rounded-xl bg-navy-950 text-white font-bold text-sm shadow-xl hover:bg-slate-900 transition">
+            Create Free Quotation Online
+          </a>
+          <a href="tel:+919822414748" class="px-8 py-3.5 rounded-xl bg-white text-slate-900 font-bold text-sm shadow-xl hover:bg-slate-100 transition">
+            Call Samadhan Jadhav: 9822414748
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="bg-navy-950 text-slate-400 text-xs pt-16 pb-12 border-t border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 mb-12">
+        <!-- Col 1: Business Details -->
+        <div>
+          <span class="text-xl font-black text-white tracking-tight">SHREE SAI <span class="text-amber-400">ENTERPRISES</span></span>
+          <p class="text-slate-400 mt-2 leading-relaxed">
+            Leading solar rooftop, solar water heater, and inverter specialist in Dindori &amp; Nashik. Authorised PM Surya Ghar vendor.
+          </p>
+          <div class="mt-4 p-3 bg-navy-900 rounded-xl border border-slate-800 text-[11px]">
+            <p class="text-amber-400 font-bold">★ Authorised Vendor MNRE</p>
+            <p class="text-slate-300 mt-1">PM Surya Ghar: Muft Bijli Yojana</p>
+            <p class="text-slate-400 mt-1">GSTIN: <span class="font-mono text-slate-200">27AFSPJ0957J1ZX</span></p>
+          </div>
+        </div>
+
+        <!-- Col 2: Quick Links -->
+        <div>
+          <h4 class="text-white font-bold text-sm mb-4">Quick Links</h4>
+          <ul class="space-y-2">
+            <li><a href="/" class="hover:text-amber-400 transition">Home</a></li>
+            <li><a href="/about" class="hover:text-amber-400 transition">About Business</a></li>
+            <li><a href="/owner" class="hover:text-amber-400 transition">About Samadhan Jadhav</a></li>
+            <li><a href="/products" class="hover:text-amber-400 transition">Solar Products Catalog</a></li>
+            <li><a href="/services" class="hover:text-amber-400 transition">Engineering Services</a></li>
+            <li><a href="/gallery" class="hover:text-amber-400 transition">Installation Gallery</a></li>
+            <li><a href="/quotation" class="hover:text-amber-400 transition">Free GST Quotation</a></li>
+            <li><a href="/contact" class="hover:text-amber-400 transition">Contact &amp; Map</a></li>
+          </ul>
+        </div>
+
+        <!-- Col 3: Product Categories -->
+        <div>
+          <h4 class="text-white font-bold text-sm mb-4">Product Categories</h4>
+          <ul class="space-y-2">
+            <li><a href="/products?category=solar-panels" class="hover:text-amber-400 transition">Mono PERC &amp; Bifacial Panels</a></li>
+            <li><a href="/products?category=solar-water-heaters" class="hover:text-amber-400 transition">Solar Water Heaters (ETC / FPC)</a></li>
+            <li><a href="/products?category=inverters" class="hover:text-amber-400 transition">Hybrid &amp; On-Grid Inverters</a></li>
+            <li><a href="/products?category=batteries" class="hover:text-amber-400 transition">C10 Tubular &amp; LiFePO4 Lithium</a></li>
+            <li><a href="/services" class="hover:text-amber-400 transition">Agricultural Solar Pumps</a></li>
+          </ul>
+        </div>
+
+        <!-- Col 4: Contact & Office -->
+        <div>
+          <h4 class="text-white font-bold text-sm mb-4">Dindori Head Office</h4>
+          <p class="text-slate-300 leading-relaxed">
+            Sai Sankul Apartment, Palkhed Road, A/P &amp; Tal. Dindori, Dist. Nashik - 422202, Maharashtra
+          </p>
+          <div class="mt-4 space-y-1.5 text-slate-300">
+            <p><strong>Mobile:</strong> <a href="tel:+919822414748" class="text-amber-400 hover:underline">9822414748</a></p>
+            <p><strong>Alternate:</strong> <a href="tel:+919422941187" class="hover:underline">9422941187</a></p>
+            <p><strong>Email:</strong> <a href="mailto:samadhanj182@gmail.com" class="hover:underline">samadhanj182@gmail.com</a></p>
+            <p><strong>Working Hours:</strong> Mon - Sat: 9:00 AM - 7:30 PM</p>
+          </div>
+          <div class="mt-4">
+            <a href="/admin" class="text-[11px] text-slate-500 hover:text-slate-400 underline">Staff / Admin Portal</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="pt-8 border-t border-slate-800 text-center text-[11px] text-slate-500 flex flex-col sm:flex-row justify-between items-center gap-2">
+        <p>© 2024 Shree Sai Enterprises. All rights reserved. Registered under PM Surya Ghar Yojana.</p>
+        <p>Proprietor: Samadhan R. Jadhav | GSTIN: 27AFSPJ0957J1ZX</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- FLOATING ACTION BUTTONS (WhatsApp & Call Now) -->
+  <div class="floating-actions">
+    <a href="https://wa.me/919822414748?text=Namaskar%20Samadhan%20ji,%20I%20am%20interested%20in%20solar%20solutions%20for%20my%20home/business%20in%20Dindori/Nashik." 
+       target="_blank" 
+       class="fab-btn fab-whatsapp" 
+       title="Chat on WhatsApp">
+      <span class="fab-tooltip">Chat on WhatsApp</span>
+      <svg class="w-7 h-7 fill-current" viewBox="0 0 24 24">
+        <path d="M12.031 2C6.511 2 2.016 6.494 2.016 12.015c0 1.93.551 3.73 1.506 5.257L2 22l4.891-1.503c1.472.88 3.197 1.385 5.04 1.385 5.52 0 10.016-4.494 10.016-10.015 0-5.52-4.496-10.015-10.016-10.015zm5.733 14.156c-.237.669-1.378 1.282-1.897 1.341-.519.059-1.127.241-3.691-.796-3.056-1.237-5.013-4.341-5.166-4.545-.152-.204-1.243-1.654-1.243-3.155 0-1.501.786-2.24 1.066-2.544.28-.305.61-.381.813-.381.203 0 .407.002.585.012.188.01.44-.071.687.523.254.61 1.066 2.6 1.159 2.788.093.187.155.407.031.653-.124.246-.186.398-.369.617-.183.22-.387.49-.553.659-.186.189-.38.396-.164.767.217.371.964 1.59 2.072 2.576 1.424 1.267 2.624 1.66 2.994 1.844.37.184.586.154.805-.098.219-.253.94-1.096 1.192-1.473.253-.377.505-.316.847-.189.342.127 2.164 1.021 2.535 1.206.371.185.618.277.71.433.093.156.093.903-.144 1.572z"/>
+      </svg>
+    </a>
+
+    <a href="tel:+919822414748" 
+       class="fab-btn fab-call" 
+       title="Call Samadhan Jadhav">
+      <span class="fab-tooltip">Call: 9822414748</span>
+      <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24">
+        <path d="M6.62 10.79a15.053 15.053 0 006.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
+      </svg>
+    </a>
+  </div>
+
+  <!-- Scripts -->
+  <script src="/js/cart.js"></script>
+  <script src="/js/main.js"></script>
+</body>
+</html>
